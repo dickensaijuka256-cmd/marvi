@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marvin Shoe Collection</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      color: #2c3e50;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .navbar {
+      background-color: #2c3e50;
+      padding: 20px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #3498db;
+    }
+
+    .nav-links a.active {
+      color: #3498db;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 4px;
+    }
+
+    .main-content-wrapper {
+      width: 100%;
+      min-height: calc(100% - 180px);
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin: 0 0 20px 0;
+      color: #2c3e50;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #7f8c8d;
+      margin: 0;
+    }
+
+    .shoe-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin: 0 0 10px 0;
+      color: #2c3e50;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .about-content {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .about-content h2 {
+      font-size: 32px;
+      margin: 0 0 20px 0;
+      color: #2c3e50;
+    }
+
+    .about-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .contact-content {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-content h2 {
+      font-size: 32px;
+      margin: 0 0 30px 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .contact-icon {
+      font-size: 32px;
+    }
+
+    .contact-details h3 {
+      font-size: 18px;
+      margin: 0 0 5px 0;
+      color: #2c3e50;
+    }
+
+    .contact-details p {
+      font-size: 16px;
+      margin: 0;
+      color: #555;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      color: #ffffff;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 60px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <nav class="navbar">
+   <div class="navbar-content">
+    <div class="logo" id="business-name">
+     Marvin Shoe Collection
+    </div>
+    <ul class="nav-links">
+     <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+     <li><a href="#about" class="nav-link" data-page="about">About Us</a></li>
+     <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+    </ul>
+   </div>
+  </nav>
+  <div class="main-content-wrapper">
+   <div class="main-content"><!-- Home Page -->
+    <section id="home" class="page-section active">
+     <div class="hero">
+      <div class="shoe-icon">
+       👟
+      </div>
+      <h1 id="hero-title">Marvin Shoe Collection</h1>
+      <p id="hero-tagline">Step into Style</p>
+     </div>
+     <div class="features">
+      <div class="feature-card">
+       <div class="feature-icon">
+        ✨
+       </div>
+       <h3>Quality Products</h3>
+       <p>We offer the finest selection of shoes for every occasion</p>
+      </div>
+      <div class="feature-card">
+       <div class="feature-icon">
+        💰
+       </div>
+       <h3>Affordable Prices</h3>
+       <p>Great quality shoes at prices that fit your budget</p>
+      </div>
+      <div class="feature-card">
+       <div class="feature-icon">
+        🎯
+       </div>
+       <h3>Wide Selection</h3>
+       <p>From casual to formal, we have shoes for everyone</p>
+      </div>
+     </div>
+    </section><!-- About Page -->
+    <section id="about" class="page-section">
+     <div class="about-content">
+      <h2>About Us</h2>
+      <p id="about-text">Welcome to Marvin Shoe Collection, your trusted destination for quality footwear in Entebbe. We are passionate about providing our customers with comfortable, stylish, and affordable shoes for every occasion.</p>
+      <p>Our collection features a wide variety of styles including casual shoes, formal wear, sports shoes, and much more. We believe that everyone deserves to walk in comfort and style, which is why we carefully select each pair of shoes in our inventory.</p>
+      <p>At Marvin Shoe Collection, customer satisfaction is our top priority. Our friendly staff is always ready to help you find the perfect pair of shoes that matches your style and needs.</p>
+     </div>
+    </section><!-- Contact Page -->
+    <section id="contact" class="page-section">
+     <div class="contact-content">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+       <div class="contact-item">
+        <div class="contact-icon">
+         📍
+        </div>
+        <div class="contact-details">
+         <h3>Location</h3>
+         <p id="contact-location">Entebbe City, Entebbe Road</p>
+        </div>
+       </div>
+       <div class="contact-item">
+        <div class="contact-icon">
+         📱
+        </div>
+        <div class="contact-details">
+         <h3>Phone</h3>
+         <p id="contact-phone">0770826219</p>
+        </div>
+       </div>
+       <div class="contact-item">
+        <div class="contact-icon">
+         ⏰
+        </div>
+        <div class="contact-details">
+         <h3>Business Hours</h3>
+         <p>Monday - Saturday: 9:00 AM - 7:00 PM<br>
+          Sunday: 10:00 AM - 5:00 PM</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <p>© 2024 Marvin Shoe Collection. All rights reserved.</p>
+  </footer>
+  <script>
+    const defaultConfig = {
+      business_name: "Marvin Shoe Collection",
+      tagline: "Step into Style",
+      about_text: "Welcome to Marvin Shoe Collection, your trusted destination for quality footwear in Entebbe. We are passionate about providing our customers with comfortable, stylish, and affordable shoes for every occasion.",
+      location: "Entebbe City, Entebbe Road",
+      phone: "0770826219"
+    };
+
+    async function onConfigChange(config) {
+      const businessName = config.business_name || defaultConfig.business_name;
+      const tagline = config.tagline || defaultConfig.tagline;
+      const aboutText = config.about_text || defaultConfig.about_text;
+      const location = config.location || defaultConfig.location;
+      const phone = config.phone || defaultConfig.phone;
+
+      document.getElementById('business-name').textContent = businessName;
+      document.getElementById('hero-title').textContent = businessName;
+      document.getElementById('hero-tagline').textContent = tagline;
+      document.getElementById('about-text').textContent = aboutText;
+      document.getElementById('contact-location').textContent = location;
+      document.getElementById('contact-phone').textContent = phone;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["business_name", config.business_name || defaultConfig.business_name],
+        ["tagline", config.tagline || defaultConfig.tagline],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["location", config.location || defaultConfig.location],
+        ["phone", config.phone || defaultConfig.phone]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Navigation functionality
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.page-section');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetPage = link.getAttribute('data-page');
+
+        // Update active nav link
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Show target section
+        sections.forEach(section => {
+          section.classList.remove('active');
+        });
+        document.getElementById(targetPage).classList.add('active');
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a516cacb5385bc5',t:'MTc2NDI0NDQwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
